@@ -7,6 +7,16 @@ class GoldRush{
         this.board = new Matrix() // matrix()
     }
 
+    async synchrozatinFunc(){
+        let mapsdata = []//maps.mapsList[1]
+        let num
+        while(mapsdata.length == 0){
+            num = Math.floor(Math.random() * 10);
+            mapsdata = await $.get(`/getmap/${num}`)//maps.mapsList[1]
+        }
+        return mapsdata
+    }
+
     async newGame(){
         let mapCord
         let mapvalidChecker = true
@@ -20,12 +30,13 @@ class GoldRush{
                 walsCord: []
             }
             mapvalidChecker = false
-            mapsdata = await $.get(`/getmap/0`)//maps.mapsList[1]
-            this.map = mapsdata[0].map
-            this.board.intilaizeMat(this.map.mapSize[0] ,this.map.mapSize[0])
+            
+            mapsdata = await this.synchrozatinFunc()//maps.mapsList[1]
+            this.map = mapsdata[mapsdata.length-1].map
+            this.board.intilaizeMat(this.map.mapSize[0] ,this.map.mapSize[1])
             let mat = this.map.mapShape
             for(let i = 0 ; i < this.map.mapSize[0] ; i++){
-                for(let j = 0 ; j < this.map.mapSize[0] ; j++){
+                for(let j = 0 ; j < this.map.mapSize[1] ; j++){
                     if (mat[i][j] == 1){
                         if(mapCord.player1 != null){
                             mapvalidChecker = true

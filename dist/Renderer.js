@@ -3,6 +3,9 @@ class Renderer{
 
     }
     render(matrix){
-        $('#mainDiv').empty().append(matrix)
+        const source = $("#board").html()
+        const template = Handlebars.compile(source) 
+        const newHtml = template(matrix)
+        $('#mainDiv').empty().append(newHtml)
     }
 }

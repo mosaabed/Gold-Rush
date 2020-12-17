@@ -24,11 +24,10 @@ const ORIDICT = {
 
 
 
-$('#play').on("click" , function()
+$('#play').on("click" ,async function()
 {
-    game.newGame();
+    await game.newGame();
     Render.render(game.gitMatrix())
-    console.log(game.gitMatrix())
     //render
 
     // let firstName = $('#i1').val()
@@ -50,14 +49,14 @@ window.onkeyup = function(e) {
         if(game.movePlayer(tuple[0] , tuple[1]) == 1){
             if (game.siGameOver()){
                 let winner = game.gitWinner()
+                Render.render(game.gitMatrix())
                 alert(`the Winner is player ${winner}`)
                 game.newGame();
                 Render.render(game.gitMatrix())
-                console.log(game.gitMatrix())
+               
                 //render game over
             }
             Render.render(game.gitMatrix())
-            console.log(game.gitMatrix())
         }
     }
 

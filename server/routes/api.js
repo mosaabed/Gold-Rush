@@ -4,7 +4,7 @@ const router = express.Router()
 
 const maps  = require('../models/maps.js')
 
-let index = 0
+
 
 
 router.get('/getmap/:index' , function(req , res){
@@ -15,11 +15,11 @@ router.get('/getmap/:index' , function(req , res){
 })
 
 
-router.post('/addMap/:password' , function(req , res){
+router.post('/addMap/:password/:num' , function(req , res){
     if(req.params.password == PASSWORD){
         let mapDAta = req.body
         let map =JSON.parse(mapDAta.data)
-        let mapdata =  { mapindex: index , map :map  }
+        let mapdata =  { mapindex: req.params.num, map :map  }
         index++
         let newmap = new maps(mapdata)
         newmap.save()
